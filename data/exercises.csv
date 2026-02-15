@@ -1,0 +1,49 @@
+id,name,primary_pattern,patterns,required_equipment,optional_equipment,difficulty,measure,rep_unit,time_per_unit_seconds,rep_low,rep_high,unilateral,transition_cost,impact_level,skill_level,space_required,variation_of,notes
+pushup,Press-ups,push,push,bodyweight,parallettes|rings,2,reps,total,2.5,10,25,no,1,low,low,small,,Floor by default; optional deeper ROM
+incline_pushup,Incline press-ups,push,push,bodyweight,bench|box,1,reps,total,2.2,12,30,no,1,low,low,small,pushup,Easier regression
+decline_pushup,Decline press-ups,push,push,bodyweight,box,3,reps,total,2.8,8,20,no,1,low,medium,small,pushup,Feet elevated
+ring_pushup,Ring press-ups,push,push,rings,,4,reps,total,3,6,15,no,3,low,high,small,pushup,Instability increases demand
+pike_pushup,Pike press-ups,push,push,bodyweight,parallettes,3,reps,total,3,6,15,no,2,low,medium,small,pushup,Shoulder biased
+handstand_hold,Wall handstand hold,push,push,bodyweight,wall,5,seconds,total,1,20,45,no,3,low,high,small,,Overhead stability
+,,,,,,,,,,,,,,,,,,
+bench_dip,Bench dips,push,push,bodyweight,bench,2,reps,total,2.8,10,20,no,1,low,low,small,,Shoulder friendly depth
+dip_parallettes,Parallel bar dips,push,push,parallettes,,4,reps,total,3.5,5,12,no,3,low,high,small,,Keep shoulders packed
+kb_floor_press,Kettlebell floor press,push,push,kettlebell,,2,reps,each_side,3,8,15,yes,2,low,low,small,,Each side separately
+kb_strict_press,Kettlebell strict press,push,push,kettlebell,,3,reps,each_side,3.5,6,12,yes,2,low,medium,small,,Overhead press
+,,,,,,,,,,,,,,,,,,
+pullup_strict,Pull-ups,pull,pull,pullup_bar,,4,reps,total,3.5,4,10,no,2,low,medium,small,,Full ROM
+chinup_strict,Chin-ups,pull,pull,pullup_bar,,4,reps,total,3.5,4,10,no,2,low,medium,small,pullup_strict,Supinated grip
+negative_pullup,Negative pull-ups,pull,pull,pullup_bar,box,3,reps,total,4,3,6,no,2,low,medium,small,pullup_strict,Slow eccentric
+dead_hang,Dead hang,pull,pull,pullup_bar,,2,seconds,total,1,20,45,no,1,low,low,small,,Grip and shoulders
+ring_row,Ring rows,pull,pull,rings,,2,reps,total,3,8,15,no,2,low,low,small,,Adjust foot position
+towel_row,Towel rows,pull,pull,bodyweight,door,2,reps,total,3,8,15,no,2,low,low,small,,Door anchor required
+,,,,,,,,,,,,,,,,,,
+air_squat,Air squats,squat,squat,bodyweight,,1,reps,total,1.8,15,35,no,1,low,low,small,,Base squat
+tempo_squat,Tempo squats,squat,squat,bodyweight,,2,reps,total,2.5,10,25,no,1,low,medium,small,air_squat,Slow descent
+goblet_squat,Kettlebell goblet squat,squat,squat,kettlebell,,2,reps,total,2.6,10,20,no,1,low,low,small,,Good default loaded squat
+split_squat,Split squats,squat,squat,bodyweight,kettlebell,3,reps,each_side,3.2,8,15,yes,2,low,medium,small,,Rear foot elevated optional
+reverse_lunge,Reverse lunges,squat,squat,bodyweight,kettlebell,2,reps,alternating_total,3,10,20,yes,2,low,low,small,,Knee friendly
+pistol_box,Box pistols,squat,squat,bodyweight,box,4,reps,each_side,4,4,8,yes,3,low,high,small,,Assisted single-leg
+,,,,,,,,,,,,,,,,,,
+hip_hinge,Good mornings,hinge,hinge,bodyweight,,1,reps,total,2,12,25,no,1,low,low,small,,Movement prep
+glute_bridge,Glute bridges,hinge,hinge|core,bodyweight,kettlebell,1,reps,total,2.5,12,25,no,1,low,low,small,,Optional load
+single_leg_bridge,Single-leg glute bridge,hinge,hinge|core,bodyweight,,3,reps,each_side,3,8,15,yes,2,low,medium,small,,Unilateral control
+kb_rdl,Kettlebell RDL,hinge,hinge,kettlebell,,2,reps,total,3,8,15,no,1,low,low,small,,Controlled hinge
+kb_single_leg_rdl,Single-leg KB RDL,hinge,hinge,kettlebell,,4,reps,each_side,4,6,10,yes,2,low,high,small,,Balance demand
+kb_swing,Kettlebell swings,hinge,hinge|conditioning,kettlebell,,3,reps,total,1.7,12,25,no,1,medium,medium,small,,Explosive hinge
+,,,,,,,,,,,,,,,,,,
+front_plank,Front plank,core,core,bodyweight,,2,seconds,total,1,30,60,no,1,low,low,small,,Neutral spine
+side_plank,Side plank,core,core,bodyweight,,3,seconds,seconds_each_side,1,20,45,yes,1,low,medium,small,,Each side
+hollow_hold,Hollow hold,core,core,bodyweight,,3,seconds,total,1,20,40,no,1,low,medium,small,,Posterior tilt
+dead_bug,Dead bug,core,core,bodyweight,,2,reps,alternating_total,3,10,20,yes,1,low,low,small,,Control focus
+vups,V-ups,core,core,bodyweight,,3,reps,total,2.8,8,15,no,1,low,medium,small,,Straight legs
+,,,,,,,,,,,,,,,,,,
+mountain_climbers,Mountain climbers,conditioning,conditioning|core,bodyweight,,2,reps,steps_total,1.2,30,60,yes,1,medium,low,small,,Fast turnover
+high_knees,High knees,conditioning,conditioning,bodyweight,,2,reps,steps_total,1,40,80,yes,1,medium,low,small,,Light bounce
+burpees,Burpees,conditioning,conditioning,bodyweight,,3,reps,total,4.5,6,15,no,1,high,medium,small,,Spicy
+bear_crawl,Bear crawl,conditioning,conditioning|core,bodyweight,,3,seconds,total,1,20,40,no,2,low,medium,medium,,Forward/back
+kb_thruster,Kettlebell thrusters,conditioning,conditioning|squat|push,kettlebell,,4,reps,total,4,6,12,no,2,medium,high,small,,Full body
+,,,,,,,,,,,,,,,,,,
+farmers_carry,Farmers carry,carry,carry|conditioning,kettlebell,,2,seconds,total,1,30,60,no,2,low,low,medium,,Posture + grip
+single_arm_carry,Single-arm carry,carry,carry|core,kettlebell,,3,seconds,each_side,1,20,40,yes,2,low,medium,medium,,Anti-lateral flexion
+suitcase_carry,Suitcase carry,carry,carry|core,kettlebell,,3,seconds,each_side,1,20,40,yes,2,low,medium,medium,,Offset load
