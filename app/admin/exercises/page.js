@@ -126,9 +126,6 @@ function Field({ label, children }) {
 const inputClass =
   "w-full px-3 py-2 rounded-xl border border-stone-200 text-sm text-stone-800 focus:outline-none focus:ring-2 focus:ring-teal-400 bg-white";
 
-const selectClass =
-  "w-full px-3 py-2 rounded-xl border border-stone-200 text-sm text-stone-800 focus:outline-none focus:ring-2 focus:ring-teal-400 bg-white";
-
 // ── Exercise Form ────────────────────────────────────────────────────────────
 
 function ExerciseForm({ initial, allExercises, onSave, onCancel }) {
@@ -142,7 +139,6 @@ function ExerciseForm({ initial, allExercises, onSave, onCancel }) {
     setForm((prev) => ({ ...prev, [key]: value }));
   }
 
-  // Auto-generate id from name when creating new
   function handleNameChange(e) {
     const name = e.target.value;
     set("name", name);
@@ -219,7 +215,7 @@ function ExerciseForm({ initial, allExercises, onSave, onCancel }) {
 
           <Field label="Primary pattern">
             <select
-              className={selectClass}
+              className={inputClass}
               value={form.primary_pattern}
               onChange={(e) => set("primary_pattern", e.target.value)}
             >
@@ -232,7 +228,7 @@ function ExerciseForm({ initial, allExercises, onSave, onCancel }) {
           {/* Equipment */}
           <Field label="Required equipment">
             <select
-              className={selectClass}
+              className={inputClass}
               value={form.required_equipment}
               onChange={(e) => set("required_equipment", e.target.value)}
             >
@@ -273,7 +269,7 @@ function ExerciseForm({ initial, allExercises, onSave, onCancel }) {
           <div className="grid grid-cols-2 gap-3">
             <Field label="Measure">
               <select
-                className={selectClass}
+                className={inputClass}
                 value={form.measure}
                 onChange={(e) => set("measure", e.target.value)}
               >
@@ -284,7 +280,7 @@ function ExerciseForm({ initial, allExercises, onSave, onCancel }) {
             </Field>
             <Field label="Rep unit">
               <select
-                className={selectClass}
+                className={inputClass}
                 value={form.rep_unit}
                 onChange={(e) => set("rep_unit", e.target.value)}
               >
@@ -328,7 +324,7 @@ function ExerciseForm({ initial, allExercises, onSave, onCancel }) {
           <div className="grid grid-cols-2 gap-3">
             <Field label="Impact level">
               <select
-                className={selectClass}
+                className={inputClass}
                 value={form.impact_level}
                 onChange={(e) => set("impact_level", e.target.value)}
               >
@@ -339,7 +335,7 @@ function ExerciseForm({ initial, allExercises, onSave, onCancel }) {
             </Field>
             <Field label="Skill level">
               <select
-                className={selectClass}
+                className={inputClass}
                 value={form.skill_level}
                 onChange={(e) => set("skill_level", e.target.value)}
               >
@@ -353,7 +349,7 @@ function ExerciseForm({ initial, allExercises, onSave, onCancel }) {
           <div className="grid grid-cols-2 gap-3">
             <Field label="Space required">
               <select
-                className={selectClass}
+                className={inputClass}
                 value={form.space_required}
                 onChange={(e) => set("space_required", e.target.value)}
               >
@@ -380,9 +376,12 @@ function ExerciseForm({ initial, allExercises, onSave, onCancel }) {
               { key: "unilateral", label: "Unilateral" },
               { key: "active", label: "Active" },
             ].map(({ key, label }) => (
-              <label key={key} className="flex items-center gap-2 cursor-pointer">
+              <label
+                key={key}
+                className="flex items-center gap-2 cursor-pointer"
+                onClick={() => set(key, !form[key])}
+              >
                 <div
-                  onClick={() => set(key, !form[key])}
                   className={`w-10 h-6 rounded-full transition-all ${
                     form[key] ? "bg-teal-600" : "bg-stone-200"
                   } relative`}
@@ -456,21 +455,24 @@ function ExerciseForm({ initial, allExercises, onSave, onCancel }) {
 export default function AdminExercisesPage() {
   const [exercises, setExercises] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(null);
   const [search, setSearch] = useState("");
   const [filterPattern, setFilterPattern] = useState("all");
   const [filterEquipment, setFilterEquipment] = useState("all");
-  const [editingExercise, setEditingExercise] = useState(null); // null | exercise object
+  const [editingExercise, setEditingExercise] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
-  const [deleteConfirm, setDeleteConfirm] = useState(null); // exercise id
+  const [deleteConfirm, setDeleteConfirm] = useState(null);
+  const [deleteError, setDeleteError] = useState(null);
 
   async function loadExercises() {
     setLoading(true);
+    setLoadError(null);
     try {
       const q = query(collection(db, "exercises"), orderBy("name"));
       const snap = await getDocs(q);
       setExercises(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
     } catch (err) {
-      console.error("Failed to load exercises:", err);
+      setLoadError(err.message);
     } finally {
       setLoading(false);
     }
@@ -495,12 +497,16 @@ export default function AdminExercisesPage() {
   }
 
   async function handleDelete(id) {
-    await deleteDoc(doc(db, "exercises", id));
-    setExercises((prev) => prev.filter((e) => e.id !== id));
-    setDeleteConfirm(null);
+    try {
+      await deleteDoc(doc(db, "exercises", id));
+      setExercises((prev) => prev.filter((e) => e.id !== id));
+      setDeleteConfirm(null);
+      setDeleteError(null);
+    } catch (err) {
+      setDeleteError(err.message);
+    }
   }
 
-  // Filtered list
   const filtered = exercises.filter((ex) => {
     const matchSearch =
       search === "" ||
@@ -587,6 +593,8 @@ export default function AdminExercisesPage() {
         {/* Exercise list */}
         {loading ? (
           <div className="text-center py-20 text-stone-400 text-sm">Loading...</div>
+        ) : loadError ? (
+          <div className="text-center py-20 text-sm text-red-500">{loadError}</div>
         ) : filtered.length === 0 ? (
           <div className="text-center py-20 text-stone-400 text-sm">No exercises found</div>
         ) : (
@@ -644,7 +652,7 @@ export default function AdminExercisesPage() {
                       ✏️
                     </button>
                     <button
-                      onClick={() => setDeleteConfirm(ex.id)}
+                      onClick={() => { setDeleteError(null); setDeleteConfirm(ex.id); }}
                       className="w-8 h-8 rounded-xl bg-red-50 hover:bg-red-100 flex items-center justify-center text-red-400 text-sm transition-all"
                     >
                       🗑
@@ -682,9 +690,12 @@ export default function AdminExercisesPage() {
               </span>{" "}
               from Firestore. This cannot be undone.
             </p>
+            {deleteError && (
+              <p className="text-sm text-red-600 bg-red-50 rounded-xl px-4 py-2 mb-4">{deleteError}</p>
+            )}
             <div className="flex gap-3">
               <button
-                onClick={() => setDeleteConfirm(null)}
+                onClick={() => { setDeleteConfirm(null); setDeleteError(null); }}
                 className="flex-1 py-3 rounded-2xl text-sm font-semibold bg-stone-100 text-stone-600 hover:bg-stone-200 transition-all"
               >
                 Cancel

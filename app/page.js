@@ -75,7 +75,7 @@ export default function Home() {
 
       setWorkout(data);
     } catch (err) {
-      setError(String(err));
+      setError(err instanceof Error ? err.message : String(err));
       setWorkout(null);
     } finally {
       setLoading(false);
@@ -373,7 +373,7 @@ export default function Home() {
             {/* Main blocks */}
             {workout.blocks.map((b, i) => (
               <div
-                key={i}
+                key={b.type}
                 className="bg-white rounded-2xl p-5 shadow-sm border border-warm-100"
               >
                 <div className="flex items-center gap-2 mb-1">
