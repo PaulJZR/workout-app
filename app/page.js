@@ -298,6 +298,12 @@ export default function Home() {
     setBuildLoading(true);
     setBuildError(null);
     try {
+      const selectedEquipment = [
+        "bodyweight",
+        ...selectedExercises.map((ex) => ex.required_equipment).filter(Boolean),
+      ];
+      const equipmentAvailable = [...new Set(selectedEquipment)];
+
       const res = await fetch("/api/generate-workout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -308,10 +314,10 @@ export default function Home() {
           rounds: buildShowRounds ? buildRounds : undefined,
           windowMinutes: buildShowWindows ? buildWindowMinutes : undefined,
           windowRounds: buildShowWindows ? buildWindowRounds : undefined,
-          equipmentAvailable: equipment,
+          equipmentAvailable,
           warmupMinutes: null,
           respectExplicitMainMinutes: false,
-          pinnedExerciseIds: [...selectedIds],
+          pinnedExercises: selectedExercises,
         }),
       });
       const data = await res.json();
