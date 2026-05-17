@@ -3,11 +3,10 @@
 import { useState } from "react";
 import { WORKOUTS } from "./data";
 
-const SECTION_ICONS = { warmup: "🔥", main: "⚡", cooldown: "🧊" };
+const SECTION_ICONS = { warmup: "🔥", main: "⚡" };
 const SECTION_BADGE = {
   warmup: "bg-amber-100",
   main: "bg-teal-100",
-  cooldown: "bg-blue-100",
 };
 const LETTER_BG = {
   amber: "bg-amber-500",

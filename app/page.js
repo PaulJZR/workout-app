@@ -62,7 +62,6 @@ export default function Home() {
           windowRounds: showWindows ? windowRounds : undefined,
           equipmentAvailable: equipment,
           warmupMinutes: null,
-          cooldownMinutes: null,
           respectExplicitMainMinutes: false,
         }),
       });
@@ -338,9 +337,6 @@ export default function Home() {
               <div className="flex gap-4 mt-3 text-xs text-teal-200">
                 <span>Warm-up {workout.timing.warmup}m</span>
                 <span>Main {workout.timing.main}m</span>
-                {workout.timing.cooldown > 0 && (
-                  <span>Cool-down {workout.timing.cooldown}m</span>
-                )}
               </div>
             </div>
 
@@ -443,25 +439,6 @@ export default function Home() {
                 </div>
               </div>
             ))}
-
-            {/* Cool-down */}
-            {workout.timing.cooldown > 0 && (
-              <div className="bg-white rounded-2xl p-5 shadow-sm border border-warm-100">
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center text-sm">
-                    🧊
-                  </div>
-                  <h3 className="text-sm font-bold text-warm-700">Cool-down</h3>
-                  <span className="text-xs text-warm-400 ml-auto">
-                    ~{workout.timing.cooldown} min
-                  </span>
-                </div>
-                <p className="text-sm text-warm-500 leading-relaxed">
-                  Easy breathing + stretch what feels tight (hips, hamstrings,
-                  shoulders).
-                </p>
-              </div>
-            )}
 
             {/* Regenerate */}
             <button
